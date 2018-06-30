@@ -1,22 +1,22 @@
 # Contributing
 
-First, get the sources of the backend. Either `git clone https://github.com/filebrowser/filebrowser`, or download with `curl`/`wget`:
+File Browser is a free and open source software brought to you with :heart: by [@hacdias](https://github.com/hacdias) and [contributors](https://github.com/filebrowser/filebrowser/graphs/contributors). So, first off, thanks for taking the time to contribute. We need all the help we can get :thumbsup:
 
-``` bash
-curl -L https://github.com/filebrowser/filebrowser/archive/master.tar.gz | tar xvz
-cd filebrowser-master
-```
+- Found a bug? Open either a [bug report](https://github.com/filebrowser/filebrowser/issues/new?template=bug_report.md) or a [Caddy-related bug report](https://github.com/filebrowser/filebrowser/issues/new?template=caddy_bug_report.md).
+- Got a feature idea? Open a [feature request](https://github.com/filebrowser/filebrowser/issues/new?template=feature_request.md).
+- Want to contribute modifications to the codebase? See [Project structure](#structure), [Builds](./builds.md) and [Development](./development.md). Then open a [Pull Request (PR)](https://github.com/filebrowser/filebrowser/compare/).
+- Spread the word. Talk to your friends and colleagues about how awesome File Browser is!
 
-Then, run either `build.sh` or `build_in_docker.sh`. In order to run `build.sh` you will need `nodejs`, `yarn`, `go`, and `git`. If you have docker installed, `build_in_docker.sh` will download a ready-to-use image with all the development tools; then `build.sh` will be automatically executed.
+<a name="structure"></a>
+## Project structure
 
-Now, build the docker image:
+This project is composed of two main repositories:
 
-``` bash
-docker build -t filebrowser/filebrowser .
-```
+- The backend hosted at `filebrowser/filebrowser` is entirely written in [go(lang)](https://golang.org/).
+- The frontend hosted at `filebrowser/frontend` is written with the [Vue.js](https://vuejs.org/) framework to produce [JavaScript](https://en.wikipedia.org/wiki/JavaScript), [CSS](https://en.wikipedia.org/wiki/Cascading_Style_Sheets) and [HTML](https://www.w3.org/html/).
 
-And try it:
+This modular approach is meant to make contributing easier for users willing to focus on/reuse only some piece, instead of being forced to analyze the whole project. However, due to the tight coupling required by some functionalities, basic knowledge of both golang and Vue.js is recommended. See [golang/go/wiki/Learn](https://github.com/golang/go/wiki/Learn) and [vuejs.org/v2/guide](https://vuejs.org/v2/guide/index.html).
 
-``` bash
-docker run -dp 5555:80 filebrowser/filebrowser --no-auth
-```
+This structure is also valuable for third parties to develop alternative implementations of any of the pieces. E.g. a different frontend can be written using Angular/AngularJS, but keeping the same backend. Equally, a different backend can be written using Python or Ruby, but keeping the same frontend.
+
+Furthermore, File Browser can be used as a middleware for an app. Indeed, it is available as a plugin for [Caddy](https://caddyserver.com/). See [caddyserver.com/docs/http.filemanager](https://caddyserver.com/docs/http.filemanager) and [filebrowser/filebrowser/tree/master/caddy](https://github.com/filebrowser/filebrowser/tree/master/caddy).
