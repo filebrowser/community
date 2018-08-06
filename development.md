@@ -3,7 +3,7 @@
 Prior to starting any modification, please:
 
 - Check the issues in [filebrowser/filebrowser](https://github.com/filebrowser/filebrowser/issues) and [filebrowser/frontend](https://github.com/filebrowser/frontend/issues). Someone might already be working in a similar solution, and being aware of it will help reduce duplicate effort.
-  - If there are no similar issues/PR, please open a new one to let others know.
+  - If there are no similar issues/PRs, please open a new one to let others know.
 
 - Read and understand [Builds](./builds.md).
 - See [godoc.org/github.com/filebrowser/filebrowser](https://godoc.org/github.com/filebrowser/filebrowser).
@@ -15,9 +15,11 @@ In order to allow iterative and fast development, a bunch of scripts are provide
 - [`build_img.sh`](https://github.com/filebrowser/filebrowser/tree/master/build/build_img.sh): build the `filebrowser/filebrowser` docker image.
 - [`build_all.sh`](https://github.com/filebrowser/filebrowser/tree/master/build/build_all.sh): execute `build_assets.sh` and `build.sh`, one after the other.
 
-Furthermore, a docker image named `filebrowser/dev` is provided to support development/collaboration from hosts with a single dependency: docker. This also allows to develop File Browser offline (see [No connection](#offline) below). You can either get it from [hub.docker.com/r/filebrowser/dev](https://hub.docker.com/r/filebrowser/dev/) or build it locally with [`build_img_dev.sh`](https://github.com/filebrowser/filebrowser/tree/master/build/build_img_dev.sh).
+Furthermore, a docker image named [filebrowser/dev](https://hub.docker.com/r/filebrowser/dev/) is provided to support development/collaboration from hosts with a single dependency: [docker](https://www.docker.com/). This also allows to develop File Browser offline (see [No connection](#offline) below). You can either get it from [hub.docker.com/r/filebrowser/dev](https://hub.docker.com/r/filebrowser/dev/) or build it locally with [`build_img_dev.sh`](https://github.com/filebrowser/filebrowser/tree/master/build/build_img_dev.sh).
 
 Note that the scripts above are the ones used in CI environments in order to have File Browser tested after each commit is pushed to the repo. Therefore, using these locally ensures consistency all along the design and deployment flow.
+
+> NOTE: in order to build specific versions of the frontend and/or the backend, checkout the desired commits before using any of the described procedures.
 
 Depending on which tools you want/can install locally, several development environments are supported:
 
@@ -83,4 +85,4 @@ After a first execution of `build_all.sh`, dependencies (`vendor` and `frontend/
 
 If you are using a Windows box without any shell, the interactive option above can be used by slightly modifying the syntax. Then, there is a single dependency: `docker`.
 
-Alternatively, `docker run --rm -tv $(pwd):/src -w /src -v /var/run/docker.sock:/var/run/docker.sock busybox ./build_in_docker.sh` can be used.
+Alternatively, `docker run --rm -tv $(pwd):$(pwd) -w $(pwd) -v /var/run/docker.sock:/var/run/docker.sock busybox sh -c "USE_DOCKER='true' ./build/build_all.sh"` can be used.

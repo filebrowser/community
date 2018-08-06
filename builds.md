@@ -1,11 +1,13 @@
 # Builds
 
+In this document manual procedures are explained. Helper scripts to automate these are introduced in [Development](./development.md).
+
 ## Get the sources
 
-In order to make development easier, the frontend is included in the backend as a [git submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules). Then, in order to tinker with the sources, start by getting both of the repos at once with:
+In order to make development easier, the frontend is included in the backend as a [git submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules). Then, in order to tinker with the sources, start by getting both repos at once with:
 
 ``` bash
-git clone --recursive https://github.com/filebrowser/filebrowser
+git clone --recurse-submodules https://github.com/filebrowser/filebrowser
 ```
 
 > NOTE: since it is a submodule, when developing the frontend remember to update the backend repo accordingly.
@@ -23,7 +25,7 @@ However, note that this approach won't let you push your changes back easily.
 
 ## Build the frontend
 
-In order to build the frontend, just execute the build script with either [yarn](https://yarnpkg.com) or [npm](https://www.npmjs.com/) in the root of the `frontend` repository. It is suggested to clean subdir `dist` first, so that artifacts from previous builds are removed. Also, running `yarn install` to get dependencies up-to-date is encouraged.
+In order to build the frontend, just execute the build script with either [yarn](https://yarnpkg.com) or [npm](https://www.npmjs.com/) in the root of the [frontend](https://github.com/filebrowser/frontend) repository. It is suggested to clean subdir `dist` first, so that artifacts from previous builds are removed. Also, running `yarn install` to get dependencies up-to-date is encouraged.
 
 ``` bash
 # Remove existing artifacts (if any)
@@ -125,7 +127,7 @@ RUN curl -L $( \
 | tar -xvz filebrowser
 ```
 
-- Copy the binary from an image that contains it already. E.g. to build a image with a working shell an [Alpine Linux](https://alpinelinux.org/) version can be built from the default scratch-based one:
+- Copy the binary from an image that contains it already. E.g. to build a image with a working shell, an [Alpine Linux](https://alpinelinux.org/) version can be built from the default scratch-based one:
 ```
 FROM filebrowser/filebrowser AS base
 FROM alpine AS img
