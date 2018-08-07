@@ -12,10 +12,9 @@ In order to allow iterative and fast development, a bunch of scripts are provide
 
 - [`build_assets.sh`](https://github.com/filebrowser/filebrowser/tree/master/build/build_assets.sh): get frontend dependencies, build the frontend and update `rice-box.go`.
 - [`build.sh`](https://github.com/filebrowser/filebrowser/tree/master/build/build.sh): build the backend.
-- [`build_img.sh`](https://github.com/filebrowser/filebrowser/tree/master/build/build_img.sh): build the `filebrowser/filebrowser` docker image.
 - [`build_all.sh`](https://github.com/filebrowser/filebrowser/tree/master/build/build_all.sh): execute `build_assets.sh` and `build.sh`, one after the other.
 
-Furthermore, a docker image named [filebrowser/dev](https://hub.docker.com/r/filebrowser/dev/) is provided to support development/collaboration from hosts with a single dependency: [docker](https://www.docker.com/). This also allows to develop File Browser offline (see [No connection](#offline) below). You can either get it from [hub.docker.com/r/filebrowser/dev](https://hub.docker.com/r/filebrowser/dev/) or build it locally with [`build_img_dev.sh`](https://github.com/filebrowser/filebrowser/tree/master/build/build_img_dev.sh).
+Furthermore, a docker image named [filebrowser/dev](https://hub.docker.com/r/filebrowser/dev/) is provided to support development/collaboration from hosts with a single dependency: [docker](https://www.docker.com/). This also allows to develop File Browser offline (see [No connection](#offline) below). You can either get it from [hub.docker.com/r/filebrowser/dev](https://hub.docker.com/r/filebrowser/dev/) or build it locally (see [filebrowser/docker-dev](https://github.com/filebrowser/docker-dev)).
 
 Note that the scripts above are the ones used in CI environments in order to have File Browser tested after each commit is pushed to the repo. Therefore, using these locally ensures consistency all along the design and deployment flow.
 
@@ -40,11 +39,11 @@ If you are willing to install `nodejs`, `yarn`, `go`, `git`, `docker` and `shell
 If you want to install `docker` and `shell` only:
 
 - `USE_DOCKER="true" ./build/build_all.sh` executes `build_assets.sh` and `build.sh` inside a `filebrowser/dev` container, instead of running them on the host.
-- `./build/build_img.sh` builds the `filebrowser/filebrowser` image.
+- `docker build -t filebrowser/filebrowser .` builds the docker image.
 
 > NOTE: the repo can be cloned anywhere.
 
-> NOTE: `build_img.sh` should be executed outside of the container.
+> NOTE: `docker build` should be executed outside of the container.
 
 ## Docker and shell, interactive
 
