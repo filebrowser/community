@@ -40,7 +40,7 @@ yarn build
 
 ## Run or build the backend
 
-Frontend artifacts are embedded in the backend with [go.rice](github.com/GeertJohan/go.rice/rice). Therefore, prior to following the regular golang procedure this needs to be executed in the root of the `backend` repository:
+Frontend artifacts are embedded in the backend with [go.rice](github.com/GeertJohan/go.rice/rice). Therefore, prior to following the regular golang procedure this needs to be executed in subdir `lib` of the `backend` repository:
 
 ``` bash
 # Install rice tool if not present
@@ -49,29 +49,31 @@ if ! [ -x "$(command -v rice)" ]; then
 fi
 
 # Embed the assets using rice
+cd lib
 rice embed-go
 ```
 
-Then, running [dep](https://github.com/golang/dep) to get dependencies up-to-date is strongly recommended:
+Then, ensuring that all the dependencies are available is strongly recommended:
 
 ``` bash
-dep ensure -vendor-only
+cd ../cli
+go get -v ./...
 ```
 
-Last, the backend can be either run or built from subdir `cmd/filebrowser` as usual:
+Last, the backend can be either run or built from subdir `cli` as usual:
 
 ``` bash
-cd cmd/filebrowser
+cd ../cli
 go run
 ```
 
 or
 
 ``` bash
-cd cmd/filebrowser
+cd ../cli
 CGO_ENABLED=0 go build -a
-cd ../..
-cp cmd/filebrowser/filebrowser ./
+cd ..
+cp cli/filebrowser ./
 ```
 
 > Note: `CGO_ENABLED=0` is used so that a static binary is built. See [golang.org/cmd/cgo/](https://golang.org/cmd/cgo/).
@@ -110,7 +112,7 @@ docker run -dp 5555:80 filebrowser/filebrowser --no-auth
 There are at least three possible approaches to use File Browser inside a existing image:
 
 - Use a built binary that is locally available, as in the example shown above.
-- Get a release tarball and extract it in the dockerfile: 
+- Get a release tarball and extract it in the dockerfile:
 
 ```
 RUN https://github.com/filebrowser/filebrowser/releases/download/v1.8.0/linux-amd64-filebrowser.tar.gz | tar -xvz filebrowser
