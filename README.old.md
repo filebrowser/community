@@ -1,5 +1,3 @@
-> This repository is only kept for historical motives. For an up to date information, please head to [docs.filebrowser.xyz/contributing](https://docs.filebrowser.xyz/contributing).
-
 # File Browser Community
 
 This repository contains guides, snippets, hints, references, etc. to help the users and contributors of [File Browser](filebrowser.github.io).
